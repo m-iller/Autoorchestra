@@ -1,0 +1,14 @@
+{
+  "name": "autoorchestra",
+  "description": "autoorchestra: generate sequential multi-agent orchestrations for Cursor and Claude Code.",
+  "owner": {
+    "name": "OWNER"
+  },
+  "plugins": [
+    {
+      "name": "autoorchestra",
+      "source": "./",
+      "description": "Interviews you, reads the repo, designs a subagent team, and writes the agents, hooks, and orchestrator prompt."
+    }
+  ]
+}

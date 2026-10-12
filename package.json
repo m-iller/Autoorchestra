@@ -1,0 +1,44 @@
+{
+  "name": "autoorchestra",
+  "version": "0.1.0",
+  "description": "A skill that interviews you, reads your repo, and generates a sequential subagent orchestration (agents, model-enforcement hook, orchestrator prompt) for Cursor and Claude Code.",
+  "type": "module",
+  "bin": {
+    "autoorchestra": "bin/cli.mjs"
+  },
+  "files": [
+    "bin/",
+    "skills/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "check:example": "node skills/autoorchestra/scripts/render.mjs --root examples/sample-project --check",
+    "render:example": "node skills/autoorchestra/scripts/render.mjs --root examples/sample-project"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "cursor",
+    "claude-code",
+    "agent-skills",
+    "skills",
+    "subagents",
+    "orchestration",
+    "multi-agent",
+    "ai-agents"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OWNER/autoorchestra.git"
+  },
+  "homepage": "https://github.com/OWNER/autoorchestra#readme",
+  "bugs": {
+    "url": "https://github.com/OWNER/autoorchestra/issues"
+  }
+}

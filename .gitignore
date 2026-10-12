@@ -1,0 +1,28 @@
+# dependencies
+node_modules/
+
+# npm
+*.tgz
+npm-debug.log*
+.npm/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+
+# test output
+coverage/
+.tmp/
+tmp/
+
+# local agent settings (keep shared ones in git)
+.claude/settings.local.json
+
+# render output of the bundled example (regenerate with `npm run render:example`)
+examples/sample-project/.cursor/
+examples/sample-project/.claude/
+examples/sample-project/.orchestra/rendered.json

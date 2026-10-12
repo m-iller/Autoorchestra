@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "project": "acme-api",
+  "targets": ["cursor", "claude"],
+  "models": {
+    "cursor": {
+      "tiers": {
+        "ops": "composer-2.5-fast",
+        "light": "grok-4.7-medium",
+        "standard": "grok-4.7-high",
+        "heavy": "grok-4.7-xhigh"
+      },
+      "fast": {
+        "light": "grok-4.7-medium-fast",
+        "standard": "grok-4.7-high-fast"
+      },
+      "aliases": {
+        "grok-4.7[context=256k,reasoning_effort=xhigh,fast=false]": "grok-4.7-xhigh"
+      },
+      "orchestrator": "composer-2.5"
+    },
+    "claude": {
+      "tiers": {
+        "ops": "haiku",
+        "light": "sonnet",
+        "standard": "sonnet",
+        "heavy": "opus"
+      },
+      "orchestrator": "sonnet"
+    }
+  },
+  "packetTiers": ["ops", "light", "standard", "heavy"],
+  "builtins": [],
+  "orchestrator": {
+    "body": "orchestrator.md",
+    "description": "Runs the acme-api phase loop: scope, implement, merge, finish. One unit at a time."
+  },
+  "agents": [
+    {
+      "name": "scope",
+      "role": "scope",
+      "description": "Reads the current roadmap phase and returns one or two packets, each with a model. Does not edit the tree.",
+      "model": "ops",
+      "readonly": true,
+      "launchedBy": ["orchestrator"],
+      "body": "agents/scope.md"
+    },
+    {
+      "name": "implement",
+      "role": "implement",
+      "description": "Implements one scope packet on a branch, runs check and review until clean, and hands off. Does not merge. The parent passes the model.",
+      "model": "packet",
+      "launchedBy": ["orchestrator"],
+      "owns": ["src/**", "test/**", "migrations/**"],
+      "body": "agents/implement.md"
+    },
+    {
+      "name": "check",
+      "role": "check",
+      "description": "Runs local acme-api checks and returns a short green or red summary. Launched by implement and finish.",
+      "model": "ops",
+      "launchedBy": ["implement", "finish"],
+      "body": "agents/check.md"
+    },
+    {
+      "name": "review",
+      "role": "review",
+      "description": "Reviews one branch diff for real defects and returns findings. Launched by implement.",
+      "model": "standard",
+      "readonly": true,
+      "launchedBy": ["implement"],
+      "body": "agents/review.md"
+    },
+    {
+      "name": "merge",
+      "role": "merge",
+      "description": "Compares one finished branch to the spec and squash-merges it into local main. No push.",
+      "model": "ops",
+      "launchedBy": ["orchestrator"],
+      "owns": [".git/**"],
+      "body": "agents/merge.md"
+    },
+    {
+      "name": "finish",
+      "role": "finish",
+      "description": "Checks one roadmap phase against its exit criteria and returns finished or open. Launched by the orchestrator.",
+      "model": "heavy",
+      "readonly": true,
+      "launchedBy": ["orchestrator"],
+      "body": "agents/finish.md"
+    }
+  ]
+}
