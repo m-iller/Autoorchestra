@@ -2,7 +2,7 @@
   "name": "autoorchestra",
   "description": "autoorchestra: generate sequential multi-agent orchestrations for Cursor and Claude Code.",
   "owner": {
-    "name": "OWNER"
+    "name": "m-iller"
   },
   "plugins": [
     {

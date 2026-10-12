@@ -30,20 +30,20 @@ Pick one. Each method installs the same skill.
 ### Any agent, via the skills CLI (recommended)
 
 ```bash
-npx skills add OWNER/autoorchestra              # auto-detect your agent
-npx skills add OWNER/autoorchestra -a cursor
-npx skills add OWNER/autoorchestra -a claude-code
-npx skills add OWNER/autoorchestra -g           # global, for all your projects
+npx skills add m-iller/Autoorchestra              # auto-detect your agent
+npx skills add m-iller/Autoorchestra -a cursor
+npx skills add m-iller/Autoorchestra -a claude-code
+npx skills add m-iller/Autoorchestra -g           # global, for all your projects
 ```
 
 ### Claude Code plugin
 
 ```bash
-claude plugin marketplace add OWNER/autoorchestra
+claude plugin marketplace add m-iller/Autoorchestra
 claude plugin install autoorchestra@autoorchestra
 ```
 
-Or, inside a session, run `/plugin marketplace add OWNER/autoorchestra` and then `/plugin install autoorchestra@autoorchestra`.
+Or, inside a session, run `/plugin marketplace add m-iller/Autoorchestra` and then `/plugin install autoorchestra@autoorchestra`.
 
 ### npm
 
@@ -52,7 +52,7 @@ npx autoorchestra init                # installs for whichever of .cursor/ / .cl
 npx autoorchestra init --cursor       # only Cursor
 npx autoorchestra init --claude       # only Claude Code
 npx autoorchestra init --global       # ~/.cursor/skills and ~/.claude/skills
-npx github:OWNER/autoorchestra init   # straight from GitHub, without npm publish
+npx github:m-iller/Autoorchestra init   # straight from GitHub, without npm publish
 ```
 
 ### Manual
@@ -61,7 +61,7 @@ Copy `skills/autoorchestra/` to one of these:
 
 | Agent | Project | Global |
 |---|---|---|
-| Cursor | `.cursor/skills/autoorchestra/` | `~/.cursor/skills/autoorchestra/` |
+| Cursor | `.cursor/skills/autoorchestra/` or `.agents/skills/autoorchestra/` | `~/.cursor/skills/autoorchestra/` |
 | Claude Code | `.claude/skills/autoorchestra/` | `~/.claude/skills/autoorchestra/` |
 
 **Requirements:** Node.js 18 or newer, which the renderer and the hook use, and a git repository.
@@ -166,11 +166,13 @@ Edit the sources in `.orchestra/` and re-render:
 
 ```bash
 npx autoorchestra render --root .               # or:
-node .cursor/skills/autoorchestra/scripts/render.mjs --root .
-node .cursor/skills/autoorchestra/scripts/render.mjs --root . --check   # validate only
+node <skill dir>/scripts/render.mjs --root .
+node <skill dir>/scripts/render.mjs --root . --check   # validate only
 ```
 
 You can also run `/autoorchestra` again. It detects the existing spec and asks what changed, for example new models, a new role, or something that went wrong in a run.
+
+`<skill dir>` is wherever the skill was installed: `.agents/skills/autoorchestra` (skills CLI), `.cursor/skills/autoorchestra`, or `.claude/skills/autoorchestra`.
 
 Bodies use tokens such as `{{model:ops}}`, `{{launch_tool}}`, and `{{agent_file:check}}`. The same sources therefore render correctly for both platforms and survive a model swap.
 
@@ -228,11 +230,10 @@ tests/
 
 ### Publishing checklist
 
-1. Replace `OWNER` with your GitHub user or org in `README.md`, `package.json`, and `.claude-plugin/*.json`.
-2. Bump `version` in both `package.json` and `.claude-plugin/plugin.json`, then update `CHANGELOG.md`.
-3. Run `npm test` and `claude plugin validate .`.
-4. Push to GitHub. That alone enables `npx skills add` and the plugin marketplace.
-5. Run `npm publish` to enable `npx autoorchestra init`.
+1. Bump `version` in both `package.json` and `.claude-plugin/plugin.json`, then update `CHANGELOG.md`.
+2. Run `npm test` and `claude plugin validate .`.
+3. Push to GitHub. That alone enables `npx skills add` and the plugin marketplace.
+4. Run `npm publish` to enable `npx autoorchestra init`.
 
 ## License
 

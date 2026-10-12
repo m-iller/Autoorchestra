@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "Generate a sequential subagent orchestration for your repo: agents, a model-enforcement hook, and an orchestrator prompt for a cheaper model.",
   "author": {
-    "name": "OWNER"
+    "name": "m-iller"
   },
-  "homepage": "https://github.com/OWNER/autoorchestra",
-  "repository": "https://github.com/OWNER/autoorchestra",
+  "homepage": "https://github.com/m-iller/Autoorchestra",
+  "repository": "https://github.com/m-iller/Autoorchestra",
   "license": "MIT",
   "keywords": ["subagents", "orchestration", "multi-agent", "cursor"]
 }
